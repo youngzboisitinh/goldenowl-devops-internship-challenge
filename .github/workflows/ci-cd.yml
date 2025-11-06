@@ -68,16 +68,16 @@ jobs:
           username: ${{ secrets.AWS_EC2_USERNAME }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/goldenowl-app:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/goldenowl-app:latest
             
-            docker stop goldenowl-app || true
-            docker rm goldenowl-app || true
+            sudo docker stop goldenowl-app || true
+            sudo docker rm goldenowl-app || true
             
-            docker run -d \
+            sudo docker run -d \
               --name goldenowl-app \
               -p 3000:3000 \
               --restart unless-stopped \
               -e NODE_ENV=production \
               ${{ secrets.DOCKERHUB_USERNAME }}/goldenowl-app:latest
             
-            docker image prune -af || true
+            sudo docker image prune -af || true
